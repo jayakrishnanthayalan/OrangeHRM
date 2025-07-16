@@ -6,4 +6,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Main
 {
     public static void main(String[] args)
+    {
+        
+    }
 }
