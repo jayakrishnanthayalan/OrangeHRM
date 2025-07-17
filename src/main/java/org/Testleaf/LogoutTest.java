@@ -9,45 +9,21 @@ import java.time.Duration;
 public class LogoutTest {
     public static void main(String[] args) {
         WebDriver driver = new ChromeDriver();
-        driver.get("https://opensource-demo.orangehrmlive.com/");
-
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        // Step 1: Login
-        WebElement username = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("username")));
-        username.sendKeys("Admin");
+        // 1. Login
+        driver.get("https://opensource-demo.orangehrmlive.com/");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("username"))).sendKeys("Admin");
+        driver.findElement(By.name("password")).sendKeys("admin123");
+        driver.findElement(By.tagName("button")).click();
 
-        WebElement password = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("password")));
-        password.sendKeys("admin123");
+        // 2. Logout
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("span.oxd-userdropdown-tab"))).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='Logout']"))).click();
 
-        WebElement loginBtn = wait.until(ExpectedConditions.elementToBeClickable(By.tagName("button")));
-        loginBtn.click();
-
-        // Step 2: Wait for dashboard to load (target welcome/profile icon)
-        WebElement profileDropdown = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        By.cssSelector("span.oxd-userdropdown-tab")
-                )
-        );
-        profileDropdown.click();
-
-        // Step 3: Click Logout option
-        WebElement logoutBtn = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        By.xpath("//a[text()='Logout']")
-                )
-        );
-        logoutBtn.click();
-
-        // Step 4: Verify if redirected to login page
+        // 3. Verification
         wait.until(ExpectedConditions.urlContains("auth/login"));
-        String currentUrl = driver.getCurrentUrl();
-
-        if (currentUrl.contains("auth/login")) {
-            System.out.println("Logout successful: Redirected to login page.");
-        } else {
-            System.out.println("Logout failed: Still logged in.");
-        }
+        System.out.println(driver.getCurrentUrl().contains("auth/login") ? "Logout successful" : "Logout failed");
 
         driver.quit();
     }
