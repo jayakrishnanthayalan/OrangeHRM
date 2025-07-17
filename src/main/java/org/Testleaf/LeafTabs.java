@@ -5,7 +5,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
 
-public class Main
+public class LeafTabs
 {
     public static void main(String[] args) throws InterruptedException {
         ChromeOptions opt = new ChromeOptions();
