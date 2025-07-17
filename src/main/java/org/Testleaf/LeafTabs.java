@@ -3,7 +3,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import javax.lang.model.element.Element;
 import java.time.Duration;
 
 public class Main
